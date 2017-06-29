@@ -1,0 +1,59 @@
+import {Component} from 'angular2/core';
+import {MoviesComponent} from './movies.component'
+import {ShowCreatorComponent} from './showCreator.component'
+import {AutoGrowDirective} from './auto-graw.directive'
+import {FavoriteComponent} from './favorite.component'
+import {TweetLikeComponent} from './tweetLike.component'
+import {votingComponent} from './voting.component'
+import {tweetComponent} from './tweets.component'
+import {zippyComponent} from './zippy.component'
+
+@Component({
+    selector: 'my-app',
+    template: `
+                <zippy title="Who can see my staff?">
+                    Content of who can see my staff
+                </zippy>
+                <zippy title="Who can contact me?">
+                    Content of who can contact me
+                </zippy>
+                <favorite [is-favorite]="post.isFavorite" (changeFavorite)='makeChange($event)'></favorite>
+                
+                <voting 
+                    [voteUp]="stackOverflow.votedUp" 
+                    [voteDown]="stackOverflow.votedDown" 
+                    [totalVotes]="stackOverflow.neutralVote"
+                    [neutralVote]="stackOverflow.neutralVote"
+                ></voting><br/><br/>
+                <tweets></tweets><br/><br/>
+                `,
+    directives: [
+        MoviesComponent,
+        ShowCreatorComponent,
+        AutoGrowDirective,
+        FavoriteComponent,
+        TweetLikeComponent,
+        votingComponent,
+        tweetComponent,
+        zippyComponent
+    ]
+})
+
+export class AppComponent { 
+    post={
+        title: "My Favorite",
+        isFavorite: true,
+        likedIt: false,
+        totalCount: 10
+    }
+
+    stackOverflow={
+        voteUp: false,
+        voteDown: false,
+        neutralVote: 10
+    }
+
+    makeChange($event){
+        console.log($event);
+    }
+}

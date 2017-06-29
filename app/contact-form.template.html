@@ -1,0 +1,41 @@
+<div class="container" style="width: 500px; padding-top: 50px">
+    <form #frm="ngForm" (ngSubmit)="OnSubmit(frm.form)">
+        <div class="form-group">
+            <label for="firstName">Name</label>
+            <input ngControl="firstName" #fName="ngForm" id="firstName" type="text" class="form-control" required minlength="3" />
+
+            <div *ngIf="fName.touched && fName.errors">
+                <div class="alert alert-danger" *ngIf="fName.errors.required">
+                    Name required 
+                </div>  
+
+                <div class="alert alert-danger" *ngIf="fName.errors.minlength">
+                    Name should be minimum 3 characters long
+                </div>
+            </div>        
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input ngControl="email" #mail="ngForm" id="email" type="text" class="form-control" required minlength="3" />
+
+            <div class="alert alert-danger" *ngIf="mail.touched && !mail.valid">
+                Invalid data found
+            </div>        
+        </div>
+
+        <div class="form-group">
+            <label for="substype">Subscription type</label>
+            <select class="form-control" id="subsPeriod" ngControl="subsPeriod" #sub="ngForm" required>
+                <option value="0">Select</option>
+                <option value="type.value" *ngFor="#type of subsType">
+                    {{ type.label }}
+                </option>
+            </select>
+
+            <div class="alert alert-danger" *ngIf="sub.value==0">Please select subscription period</div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="!frm.valid">Submit</button>
+    </form>
+</div>

@@ -1,0 +1,52 @@
+<div class="container">
+    <form [ngFormModel]="form" (ngSubmit)="changePassword()">
+        <div class="form-group">
+            <label for="Old Password">Old Password</label>
+            <input type="password" class="form-control" id="oldpass" ngControl="oldpass" #oldpass="ngForm" />
+
+            <div *ngIf="oldpass.touched && oldpass.errors">
+                <div class="alert alert-danger" *ngIf="oldpass.errors.required">
+                    Old Password Required.
+                </div>
+
+                <div class="alert alert-danger" *ngIf="oldpass.errors.minlength">
+                    Password should be at least {{ len }} characters long
+                </div>
+
+                <div class="alert alert-danger" *ngIf="oldpass.errors.passIncorrect">
+                    Old password is incorrect
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="New Password">New Password</label>
+            <input type="password" class="form-control" id="newpass" ngControl="newpass" #newpass="ngForm" />
+
+            <div *ngIf="newpass.touched && newpass.errors">
+                <div class="alert alert-danger" *ngIf="newpass.errors.required">
+                    New Password Required.
+                </div>
+
+                <div class="alert alert-danger" *ngIf="newpass.errors.minlength">
+                    Password should be at least {{ len }} characters long
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Confirm Password">Confirm Password</label>
+            <input type="password" class="form-control" id="confirmPassword" ngControl="confirmPassword" #confirmPassword="ngForm" />
+
+            <div class="alert alert-danger" *ngIf="confirmPassword.touched && !confirmPassword.valid">
+                 Confirm Password Required.
+            </div>
+
+            <div class="alert alert-danger" *ngIf="confirmPassword.touched && form.errors && form.errors.comparePass">
+                 Password didn't match
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+    </form>
+</div>
